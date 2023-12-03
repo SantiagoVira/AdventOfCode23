@@ -77,6 +77,7 @@ def add_gear(x, lineNum, val):
         all_gears[key] = [val]
 
 
+# 77509019
 for lineNum, line in enumerate(data):
     nums = [
         {
@@ -87,48 +88,34 @@ for lineNum, line in enumerate(data):
         for num in re.finditer("\d+", line)
     ]
 
-    # print(nums)
-
-    for i, num in enumerate(nums):
+    for num in nums:
         if lineNum != 0:
             if safeSearch(data[lineNum-1], num["start"] - 1) == "*":
-                print(data[lineNum-1][num["start"] - 1])
                 add_gear(num["start"] - 1, lineNum - 1, num["value"])
             if safeSearch(data[lineNum-1], num["end"]) == "*":
-                print(data[lineNum-1][num["end"]])
                 add_gear(num["end"], lineNum - 1, num["value"])
 
             for charIdx, char in enumerate(data[lineNum-1][num["start"]: num["end"]]):
                 if char == "*":
-                    print(data[lineNum-1][num["start"] + charIdx])
                     add_gear(num["start"] + charIdx, lineNum - 1, num["value"])
 
         if safeSearch(line, num["start"] - 1) == "*":
-            print(line[num["start"] - 1])
             add_gear(num["start"] - 1, lineNum, num["value"])
         if safeSearch(line, num["end"]) == "*":
-            print(line[num["end"]])
             add_gear(num["end"], lineNum, num["value"])
 
         if lineNum != len(data) - 1:
             if safeSearch(data[lineNum+1], num["start"] - 1) == "*":
-                print(data[lineNum+1][num["start"] - 1])
                 add_gear(num["start"] - 1, lineNum + 1, num["value"])
             if safeSearch(data[lineNum+1], num["end"]) == "*":
-                print(data[lineNum+1][num["end"]])
                 add_gear(num["end"], lineNum + 1, num["value"])
 
             for charIdx, char in enumerate(data[lineNum+1][num["start"]: num["end"]]):
                 if char == "*":
-                    print(data[lineNum+1][num["start"] + charIdx])
                     add_gear(num["start"] + charIdx, lineNum + 1, num["value"])
 
-print(len(all_gears))
-print(sum(map(lambda x: 1 if '*' in x else 0, "\n".join(data))))
-
-for loc, gear in all_gears.items():
+for gear in all_gears.values():
     if len(gear) == 2:
-        # print(loc)
         summ += gear[0] * gear[1]
 
 
