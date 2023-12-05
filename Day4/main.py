@@ -7,8 +7,6 @@ counts = {
     num: 1 for num in range(1, 202)
 }
 
-print(counts)
-
 for cardNum, line in enumerate(data):
     lists = line[10:].split("|")
     winning = [int(num.strip())
