@@ -20,6 +20,8 @@ for line in data:
     bid = int(bid)
 
     most_common_letter = collections.Counter(hand).most_common()[0][0]
+    if most_common_letter == "J" and len(set(hand)) > 1:
+        most_common_letter = collections.Counter(hand).most_common()[1][0]
     new_hand = hand.replace("J", most_common_letter)
 
     if hand != new_hand:
@@ -51,11 +53,15 @@ rank = 1000
 for hand_type, hands in typed_hands.items():
     sorted_hands = sorted(hands, key=lambda hand: [
                           order.index(c) for c in hand[0]])
-    print(sorted_hands)
+    # print(sorted_hands)
     for hand in sorted_hands:
         res += rank * hand[1]
         rank -= 1
 
 print(res)
 
-# Wrong: 248368409
+
+# Part 1:   249748283
+# Wrong:    248368409
+# Correct:  248029057
+# Diff:     339352
