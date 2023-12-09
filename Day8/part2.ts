@@ -14,9 +14,10 @@ for (const node of raw_network) {
     .split(", ");
 }
 
-let count = 0;
 const nodes = Object.keys(network).filter((k) => k.endsWith("A"));
 const LRtoIdx = (x: string) => (x === "L" ? 0 : 1);
+
+const lengths: number[] = [];
 
 for (let n of nodes) {
   let node = n;
@@ -33,22 +34,14 @@ for (let n of nodes) {
       break;
     }
   }
-  console.log(loop_len);
+
+  lengths.push(loop_len);
 }
 
-// while (true) {
-//   const dir = seq[count % seq.length];
-//   let isDone = true;
+const lcm = (...arr) => {
+  const gcd = (x, y) => (!y ? x : gcd(y, x % y));
+  const _lcm = (x, y) => (x * y) / gcd(x, y);
+  return [...arr].reduce((a, b) => _lcm(a, b));
+};
 
-//   console.log(nodes, dir, LRtoIdx(dir));
-
-//   for (let i = 0; i < nodes.length; i++) {
-//     nodes[i] = network[nodes[i]][LRtoIdx(dir)];
-//     if (!nodes[i].endsWith("Z")) isDone = false;
-//   }
-//   count += 1;
-
-//   if (isDone) break;
-// }
-
-console.log(count);
+console.log(lcm(...lengths));
