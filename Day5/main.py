@@ -68,6 +68,7 @@ print(min(translations))
 # Wrong: 231522441
 #        231522441
 #        231522441
+#         50855035
 
 # print(max([int(num) for num in seeds.split(" ")[1:] if int(num) < 149850000]))
 # starts = [int(num) for i, num in enumerate(seeds.split(" ")[1:]) if i % 2 == 0]
